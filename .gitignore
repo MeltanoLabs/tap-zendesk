@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.tox/
+.mypy_cache/
+.ruff_cache/
+*.log
+.meltano/
+output/
+catalog.json
+config.json
+.env

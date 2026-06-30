@@ -1,0 +1,70 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatch-vcs==0.5", "hatchling==1.30.1"]
+
+[project]
+name = "matatika-tap-zendesk"
+description = "Singer tap for Zendesk Support, built with the Meltano Singer SDK."
+readme = "README.md"
+keywords = ["ELT", "tap-zendesk"]
+license = "Apache-2.0"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dynamic = ["version"]
+dependencies = [
+    "requests==2.34.2",
+    "singer-sdk~=0.54.4",
+]
+
+[project.scripts]
+tap-zendesk = "tap_zendesk.tap:TapZendesk.cli"
+
+[dependency-groups]
+dev = [
+    "pytest>=9",
+    "singer-sdk[testing]",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["tap_zendesk"]
+
+[tool.hatch.build.targets.wheel]
+include = ["tap_zendesk"]
+
+[tool.hatch.version]
+fallback-version = "0.0.0.dev0"
+source = "vcs"
+
+[tool.uv]
+default-groups = "all"
+
+[tool.ruff]
+src = ["tap_zendesk"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",  # trailing comma conflicts with ruff formatter
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["tap_zendesk"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+follow_untyped_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unused_configs = true

@@ -1,0 +1,48 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: tap-zendesk
+default_environment: dev
+plugins:
+  extractors:
+  - name: tap-zendesk
+    namespace: tap_zendesk
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    - about
+    - stream-maps
+    settings:
+    - name: subdomain
+      kind: string
+    - name: start_date
+      value: '2024-01-01T00:00:00Z'
+    # API Token auth (optional secondary path — set these instead of OAuth below)
+    - name: email
+      kind: string
+    - name: api_token
+      kind: password
+    # OAuth auth (primary path)
+      sensitive: true
+    - name: oauth_credentials.access_token
+      kind: password
+      sensitive: true
+    - name: oauth_credentials.refresh_token
+      kind: password
+      sensitive: true
+    - name: oauth_credentials.refresh_proxy_url
+      kind: string
+    - name: oauth_credentials.refresh_proxy_url_auth
+      kind: password
+      sensitive: true
+    select:
+    - tickets.*
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+environments:
+- name: dev
+- name: staging
+- name: prod
