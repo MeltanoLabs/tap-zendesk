@@ -1,7 +1,7 @@
 """Tests standard tap features using the built-in SDK tests library.
 
 Requires real Zendesk credentials via environment variables:
-  TAP_ZENDESK_SUBDOMAIN, TAP_ZENDESK_EMAIL, TAP_ZENDESK_API_TOKEN, TAP_ZENDESK_START_DATE
+  TAP_ZENDESK_SUBDOMAIN, TAP_ZENDESK_EMAIL, TAP_ZENDESK_API_TOKEN
 """
 
 import os

@@ -154,6 +154,43 @@ _MOCK_RECORDS: dict[str, list[dict]] = {
             "updated_at": "2023-01-01T00:00:00Z",
         }
     ],
+    # Incremental export streams — the d3v-meltano dev account has no tickets,
+    # organizations, or ticket metric events, so inject minimal records so CI passes.
+    "tickets": [
+        {
+            "id": 1,
+            "url": "https://d3v-meltano.zendesk.com/api/v2/tickets/1.json",
+            "subject": "Mock Ticket",
+            "description": "Mock ticket for testing.",
+            "status": "open",
+            "requester_id": 1,
+            "submitter_id": 1,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z",
+            "generated_timestamp": 1672531200,
+        }
+    ],
+    "organizations": [
+        {
+            "id": 1,
+            "url": "https://d3v-meltano.zendesk.com/api/v2/organizations/1.json",
+            "name": "Mock Organization",
+            "shared_tickets": False,
+            "shared_comments": False,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z",
+        }
+    ],
+    "ticket_metric_events": [
+        {
+            "id": 1,
+            "ticket_id": 1,
+            "metric": "reply_time",
+            "instance_id": 1,
+            "type": "activate",
+            "time": "2023-01-01T00:00:00Z",
+        }
+    ],
 }
 
 
