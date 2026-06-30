@@ -110,7 +110,7 @@ tap-zendesk --about
 
 #### OAuth2 (primary)
 
-OAuth2 is the primary auth path used by the Meltano platform. The platform manages the token exchange and injects 
+OAuth2 is the primary auth path used by the Meltano platform. The platform manages the token exchange and injects
 `oauth_credentials.access_token` at runtime. No additional setup is required when connecting through Meltano.
 
 For direct use, obtain an OAuth access token by registering an OAuth client in **Zendesk Admin Center → Apps and integrations → OAuth clients** and completing the authorization code flow.

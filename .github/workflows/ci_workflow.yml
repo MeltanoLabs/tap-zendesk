@@ -53,5 +53,5 @@ jobs:
           TAP_ZENDESK_SUBDOMAIN: ${{ secrets.TAP_ZENDESK_SUBDOMAIN }}
           TAP_ZENDESK_EMAIL: ${{ secrets.TAP_ZENDESK_EMAIL }}
           TAP_ZENDESK_API_TOKEN: ${{ secrets.TAP_ZENDESK_API_TOKEN }}
-          TAP_ZENDESK_START_DATE: "2024-01-01T00:00:00Z"
+          TAP_ZENDESK_START_DATE: "2010-01-01T00:00:00Z"
         run: uv run pytest --capture=no
