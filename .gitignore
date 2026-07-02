@@ -13,3 +13,4 @@ output/
 catalog.json
 config.json
 .env
+.idea/
