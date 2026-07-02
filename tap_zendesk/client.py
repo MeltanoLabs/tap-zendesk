@@ -107,6 +107,39 @@ class ZendeskStream(RESTStream):
     def http_headers(self) -> dict:  # noqa: D102
         return {"Content-Type": "application/json"}
 
+    def backoff_max_tries(self) -> int:
+        """Retry more than the SDK default before giving up.
+
+        Zendesk's incremental-export endpoints (tickets, users, organizations)
+        allow only ~10 requests/minute. The SDK default of 5 exponential-backoff
+        tries tops out around 30s — not enough for the per-minute window to
+        reset — so a busy sync fails with a fatal 429. Ten tries, combined with
+        the Retry-After-aware wait below, lets the window recover.
+        """
+        return 10
+
+    def backoff_wait_generator(self) -> t.Generator[float, None, None]:
+        """Honor Zendesk's ``Retry-After`` header on rate-limited responses.
+
+        The SDK default (``backoff.expo``) ignores ``Retry-After``. Zendesk
+        always sends it on a 429 with the exact number of seconds to wait, so we
+        respect it; if it is somehow absent on a 429 we wait a full minute to
+        clear the window, and fall back to a short wait for other retriable
+        errors (5xx / connection).
+        """
+
+        def _wait(exc: t.Any) -> float:
+            response = getattr(exc, "response", None)
+            if response is not None:
+                retry_after = response.headers.get("Retry-After")
+                if retry_after:
+                    return float(retry_after)
+                if response.status_code == 429:  # noqa: PLR2004
+                    return 60.0
+            return 5.0
+
+        return self.backoff_runtime(value=_wait)
+
     def get_new_paginator(self) -> BaseAPIPaginator:  # noqa: D102
         return ZendeskCursorPaginator(None)
 
