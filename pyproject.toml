@@ -8,6 +8,7 @@ description = "Singer tap for Zendesk Support, built with the Meltano Singer SDK
 readme = "README.md"
 keywords = ["ELT", "tap-zendesk"]
 license = "Apache-2.0"
+license-files = [ "LICENSE" ]
 requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3 :: Only",
